@@ -3,9 +3,9 @@ import React from "react";
 function Navigation() {
     return (
         <nav className="App-navigation">
-            <div>chat</div>
-            <div>mes</div>
-            <div>port</div>
+            <div><a href="">chat</a></div>
+            <div><a href="">chat</a></div>
+            <div><a href="">chat</a></div>
         </nav>
     )
 };
