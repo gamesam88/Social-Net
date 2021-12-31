@@ -1,0 +1,40 @@
+.App {
+  display: grid;
+  width: 1400px;
+  height: auto;
+  margin: 0 auto;
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 2fr 10fr;
+  grid-template-areas:
+    "h h"
+    "n p";
+}
+.App-header {
+  display: flex;
+  background-color: darkkhaki;
+  grid-area: h;
+  align-items: center;
+  justify-content: start;
+}
+.logo {
+  width: 60px;
+}
+.Head {
+  text-align: center;
+  justify-self: center;
+}
+.App-navigation {
+  background-color: chocolate;
+  grid-area: n;
+}
+
+.App-profile {
+  grid-area: p;
+  max-width: 100%;
+  height: auto;
+}
+
+.Cat {
+  width: 100%;
+  height: auto;
+}
