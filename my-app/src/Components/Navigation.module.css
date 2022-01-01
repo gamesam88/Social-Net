@@ -1,0 +1,8 @@
+.navbar {
+    background-color: chocolate;
+    grid-area: n;
+    padding: 20px 0px 0px 20px;
+}
+.link {
+    color: darkmagenta;
+}

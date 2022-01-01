@@ -1,0 +1,14 @@
+.header {
+    display: flex;
+    background-color: darkkhaki;
+    grid-area: h;
+    align-items: center;
+    justify-content: start;
+}
+.logo {
+    width: 60px;
+}
+.text {
+    text-align: center;
+    justify-self: center;
+}

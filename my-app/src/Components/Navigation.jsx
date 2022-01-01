@@ -1,11 +1,13 @@
 import React from "react";
+import n from "./Navigation.module.css"
 
 function Navigation() {
     return (
-        <nav className="App-navigation">
-            <div><a href="">chat</a></div>
-            <div><a href="">chat</a></div>
-            <div><a href="">chat</a></div>
+        <nav className={n.navbar}>
+            <div className={n.link}><a href="">Main</a></div>
+            <div className={n.link}><a href="">Messages</a></div>
+            <div className={n.link}><a href="">Chats</a></div>
+            <div className={n.link}><a href="">Settings</a></div>
         </nav>
     )
 };
