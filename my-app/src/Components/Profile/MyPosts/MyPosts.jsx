@@ -6,8 +6,8 @@ function MyPosts() {
         <div className={MyP.main}>
             <textarea name="" id="" cols="30" rows="10"></textarea>
             <button>Send</button>
-            <Post />
-            <Post />
+            <Post message="Hello, how are you" like="7" />
+            <Post message="Fine, and you?" like="15" />
             <Post />
         </div>
     )
