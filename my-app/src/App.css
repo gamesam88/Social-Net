@@ -1,4 +1,4 @@
-.App {
+.App-wrapper {
   display: grid;
   width: 1400px;
   height: auto;
@@ -8,4 +8,9 @@
   grid-template-areas:
     "h h"
     "n p";
+}
+.wrapper-content {
+  grid-area: p;
+  max-width: 100%;
+  height: auto;
 }

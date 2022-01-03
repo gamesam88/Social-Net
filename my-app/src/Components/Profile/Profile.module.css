@@ -1,10 +1,4 @@
-.wrapper {
-    grid-area: p;
-    max-width: 100%;
-    height: auto;
-}
-
 .image {
-    width: 100%;
+    width: 400px;
     height: auto;
 }
