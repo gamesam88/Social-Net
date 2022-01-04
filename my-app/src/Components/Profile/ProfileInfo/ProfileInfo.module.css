@@ -1,0 +1,11 @@
+.image {
+    width: 100%;
+    height: auto;
+}
+.wrapper {
+    padding: 10px;
+    display: flex;
+}
+.discription {
+    color: black;
+}
