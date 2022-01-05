@@ -2,12 +2,14 @@
     display: grid;
     grid-template-columns: 2fr 10fr;
     background: gray;
+    height: 700px;
 }
 .dialogItem {
     padding: 20px;
 }
 .messages {
     padding: 20px;
+    border-left-style: solid;
 }
 .message {
     color: white;

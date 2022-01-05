@@ -6,7 +6,7 @@ function Post(props) {
             <img src="https://proprikol.ru/wp-content/uploads/2020/04/kartinki-dlya-vajbera-na-avu-44.jpg"></img>
             {props.message}
             <div>
-                Likes {props.like}
+                Likes {props.likes}
             </div>
         </div>
     )

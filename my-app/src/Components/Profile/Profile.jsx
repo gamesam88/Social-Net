@@ -6,9 +6,7 @@ function Profile() {
     return (
         <div className={p.wrapper}>
             <ProfileInfo />
-            <div>
-                <MyPosts />
-            </div>
+            <MyPosts />
         </div>
     )
 };
