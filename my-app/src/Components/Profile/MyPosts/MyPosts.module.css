@@ -1,16 +1,14 @@
-.main {
-    initial-letter-align: 4px;
-}
 .textButton {
+    width: 500px;
     display: flex;
-
-    height: 80px;
+    flex-direction: row;
+    align-items: flex-end;
 }
 .textButton button {
+    text-align: center;
     width: 60px;
-    height: 50%;
+    height: 30px;
 }
 .textButton textarea {
-    width: 600px;
-    height: 100%;
+    width: 400px;
 }

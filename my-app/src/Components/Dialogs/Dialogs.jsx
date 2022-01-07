@@ -3,23 +3,11 @@ import d from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem"
 import Message from "./Message/Message"
 
-function Dialogs() {
-    let friendsData = [
-        { id: "1", name: "Aleks" },
-        { id: "2", name: "Nazar" },
-        { id: "3", name: "Anton" },
-    ]
+function Dialogs(props) {
 
-    let messagesData = [
-        { id: "1", message: "Hellow!" },
-        { id: "2", message: "Go wolk!" },
-        { id: "3", message: "Hellow! Of course!" },
-    ]
+    let DialogsElements = props.state.friends.map(d => <DialogItem name={d.name} id={d.id} ava={d.ava} />)
 
-    let DialogsElements = friendsData.map(d => <DialogItem name={d.name} id={d.id} />)
-
-    let messagesElements = messagesData.map(m => <Message message={m.message} id={m.id} />)
-
+    let messagesElements = props.state.messages.map(m => <Message message={m.message} id={m.id} />)
 
     return (
         <div className={d.dialogs}>

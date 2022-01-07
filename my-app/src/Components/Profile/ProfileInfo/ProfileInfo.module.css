@@ -1,9 +1,7 @@
 .image {
     width: 60%;
-    height: auto;
 }
 .wrapper {
-    padding: 10px;
     display: flex;
 }
 .discription {

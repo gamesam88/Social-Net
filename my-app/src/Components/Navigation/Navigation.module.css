@@ -1,7 +1,7 @@
 .navbar {
     background-color: chocolate;
     grid-area: n;
-    padding: 20px;
+    height: 800px;
 }
 .link {
     color: white;

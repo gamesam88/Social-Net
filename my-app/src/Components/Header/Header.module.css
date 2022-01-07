@@ -7,8 +7,11 @@
 }
 .logo {
     width: 60px;
+    height: 50px;
 }
 .text {
+    display: flex;
     text-align: center;
     justify-self: center;
+    padding-left: 20px;
 }

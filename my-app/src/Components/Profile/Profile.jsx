@@ -2,11 +2,11 @@ import React from "react";
 import MyPosts from "./MyPosts/MyPosts";
 import p from "./Profile.module.css"
 import ProfileInfo from "./ProfileInfo/ProfileInfo"
-function Profile() {
+function Profile(props) {
     return (
         <div className={p.wrapper}>
             <ProfileInfo />
-            <MyPosts />
+            <MyPosts posts={props.state.posts} />
         </div>
     )
 };

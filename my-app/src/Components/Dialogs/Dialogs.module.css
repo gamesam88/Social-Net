@@ -2,10 +2,10 @@
     display: grid;
     grid-template-columns: 2fr 10fr;
     background: gray;
-    height: 700px;
+    height: 800px;
 }
 .dialogItem {
-    padding: 20px;
+    margin: 20px;
 }
 .messages {
     padding: 20px;
