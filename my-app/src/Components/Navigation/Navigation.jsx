@@ -1,8 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import n from "./Navigation.module.css"
+import SideBar from "./SideBar/SideBar"
 
-const Navigation = () => {
+const Navigation = (props) => {
     return (
         <nav className={n.navbar}>
             <div >
@@ -14,6 +15,9 @@ const Navigation = () => {
                 <NavLink to="/Dialogs" className={navData => navData.isActive ? n.active : n.link}>
                     Dialogs
                 </NavLink>
+            </div>
+            <div>
+                <SideBar state={props.state} />
             </div>
         </nav >
     )

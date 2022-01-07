@@ -1,0 +1,10 @@
+.sidebar {
+}
+.sidebar h3 {
+    text-align: center;
+}
+.friendsItems {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

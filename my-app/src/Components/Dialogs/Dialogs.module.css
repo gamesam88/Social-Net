@@ -7,9 +7,15 @@
 .dialogItem {
     margin: 20px;
 }
-.messages {
+.messagesItems {
     padding: 20px;
     border-left-style: solid;
+}
+.messages {
+    margin-bottom: 50px;
+}
+.textInput {
+    width: 300px;
 }
 .message {
     color: white;
