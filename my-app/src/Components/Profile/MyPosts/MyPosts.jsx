@@ -4,19 +4,24 @@ import My from "./MyPosts.module.css"
 
 function MyPosts(props) {
 
-    let postsElements = props.posts.map(m => <Post message={m.message} likes={m.like} />)
+    let postsElements = props.profilePage.posts.map(m => <Post message={m.message} likes={m.like} />)
 
     let newPostElement = React.createRef()
 
+
     let addNewPost = () => {
+        props.addPost();
+    }
+
+    let onPostChange = () => {
         let text = newPostElement.current.value;
-        props.addPost(text);
+        props.updateNewPost(text)
     }
 
     return (
         <div className={My.main}>
             <div className={My.textButton}>
-                <textarea ref={newPostElement} name="" id="" cols="30" rows="5"></textarea>
+                <textarea placeholder="Yo write something here." onChange={onPostChange} ref={newPostElement} value={props.profilePage.newPost} name="" id="" cols="30" rows="5"></textarea>
                 <button onClick={addNewPost}>Send</button>
             </div>
             {postsElements}

@@ -1,3 +1,5 @@
+import { rerenderEntireTree } from "../render"
+
 let state = {
     profilePage: {
         posts: [
@@ -5,6 +7,7 @@ let state = {
             { id: "2", message: "Fine, and you?", like: "7" },
             { id: "3", message: "Im fine.", like: "15" },
         ],
+        newPost: "",
     },
     dialogsPage: {
         friends: [
@@ -18,6 +21,8 @@ let state = {
             { id: "2", message: "Go walk!" },
             { id: "3", message: "Hellow! Of course!" },
         ],
+
+        newMessage: "",
     },
     sideBar: {
         friends: [
@@ -27,13 +32,40 @@ let state = {
         ]
     }
 }
-export let addPost = (postMessage) => {
+
+{/* -------   Add_new_Post  -----        */ }
+
+export let addPost = () => {
     let newPost = {
         id: "4",
-        message: postMessage,
+        message: state.profilePage.newPost,
         like: "0"
     }
-    state.profilePage.posts.push(newPost)
+    state.profilePage.posts.push(newPost);
+    state.profilePage.newPost = "";
+    rerenderEntireTree(state);
+}
+
+export let updateNewPost = (newText) => {
+    state.profilePage.newPost = newText;
+    rerenderEntireTree(state);
+}
+
+{/* -------   Add_new_Message  -----        */ }
+
+export let addMessage = () => {
+    let newMessageText = {
+        id: "4",
+        message: state.dialogsPage.newMessage
+    }
+    state.dialogsPage.messages.push(newMessageText);
+    state.dialogsPage.newMessage = "";
+    rerenderEntireTree(state);
+}
+
+export let updateMessage = (newText) => {
+    state.dialogsPage.newMessage = newText;
+    rerenderEntireTree(state);
 }
 
 export default state;
