@@ -16,6 +16,9 @@ const Navigation = () => {
                     Dialogs
                 </NavLink>
             </div>
+            <div><NavLink to="/Users" className={navData => navData.isActive ? n.active : n.link}>
+                Users
+            </NavLink></div>
             <div>
                 <SideBarContainer />
             </div>
