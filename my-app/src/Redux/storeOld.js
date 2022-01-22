@@ -1,10 +1,10 @@
-import dialogsReducer from "./dialogs_reducer";
-import profileReducer from "./profile_reducer";
+//import dialogsReducer from "./dialogs_reducer";
+//import profileReducer from "./profile_reducer";
 
 
 
 
-let store = {
+let storeOld = {
     _state: {
         profilePage: {
             posts: [

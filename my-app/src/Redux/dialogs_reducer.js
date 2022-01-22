@@ -35,16 +35,16 @@ const dialogsReducer = (state = initialState, action) => {
                 }]
             }
 
-            let newMessageText = {
-                id: "4",
-                message: state.newMessage,
-                like: "0"
-            }
-            let stateCopy = { ...state }
-            stateCopy.messages = [...state.messages]
-            stateCopy.messages.push(newMessageText)
-            stateCopy.newMessage = ""
-            return stateCopy
+            //      let newMessageText = {
+            //        id: "4",
+            //       message: state.newMessage,
+            //         like: "0"
+            //      }
+            //       let stateCopy = { ...state }
+            //       stateCopy.messages = [...state.messages]
+            //        stateCopy.messages.push(newMessageText)
+            //       stateCopy.newMessage = ""
+            //       return stateCopy
         }
         default:
             return state

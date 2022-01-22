@@ -1,3 +1,6 @@
-img {
+.ava img {
     width: 70px;
+}
+.selectPage {
+    font-weight: bold;
 }

@@ -5,7 +5,7 @@ import Dialogs from "./Dialogs";
 import { connect } from "react-redux"
 
 /*
-function oldDialogsContainer(props) {
+function DialogsContainer(props) {
 
     let state = props.store.getState()
 
