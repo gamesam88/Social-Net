@@ -1,11 +1,19 @@
 import React from "react";
-import p from "./ProfileInfo.module.css"
-function ProfileInfo() {
+import style from "./ProfileInfo.module.css"
+import Preloader from "../../common/preloader/Preloader"
+import avatarUser from "../../../assets/images/kateika.jpg"
+
+let ProfileInfo = (props) => {
+    if (!props.profile) {
+        return <Preloader />
+    }
     return (
-        <div className={p.wrapper}>
-            <img className={p.image} src="https://proprikol.ru/wp-content/uploads/2020/04/kartinki-dlya-vajbera-na-avu-44.jpg" />
-            <div className={p.discription}>
-                Info
+        <div className={style.wrapper}>
+            <div>
+                <img src={props.profile.photos.large ? props.profile.photos.large : avatarUser} />
+            </div>
+            <div className={style.discription}>
+                {props.profile.fullName}
             </div>
         </div>
     )

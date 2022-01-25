@@ -2,12 +2,14 @@ const FOLLOW_USER = "FOLLOW_USER"
 const UNFOLLOW_USER = "UNFOLLOW_USER"
 const SET_USERS = "SET_USERS"
 const CHANGE_PAGE = "CHANGE_PAGE"
+const SET_TOGGE = "SET_TOGGE"
 
 let initialState = {
     users: [],
     pageSize: 4,
     totalCounts: 20,
     currentPage: 1,
+    isFetching: false,
 
 }
 
@@ -35,23 +37,29 @@ let usersReducer = (state = initialState, action) => {
             }
         case SET_USERS:
             return {
-                ...state, users: [...action.users]
+                ...state, users: action.users
             }
         case CHANGE_PAGE:
             return {
                 ...state, currentPage: action.currentPage
+            }
+        case SET_TOGGE:
+            return {
+                ...state, isFetching: action.isFetching
             }
         default:
             return state
     }
 }
 
-export const followAC = (userId) => ({ type: FOLLOW_USER, userId })
+export const follow = (userId) => ({ type: FOLLOW_USER, userId })
 
-export const unfollowAC = (userId) => ({ type: UNFOLLOW_USER, userId })
+export const unfollow = (userId) => ({ type: UNFOLLOW_USER, userId })
 
-export const setUsersAC = (users) => ({ type: SET_USERS, users })
+export const setUsers = (users) => ({ type: SET_USERS, users })
 
-export const changePageAC = (currentPage) => ({ type: CHANGE_PAGE, currentPage })
+export const changePage = (currentPage) => ({ type: CHANGE_PAGE, currentPage })
+
+export const changeToggle = (isFetching) => ({ type: SET_TOGGE, isFetching })
 
 export default usersReducer

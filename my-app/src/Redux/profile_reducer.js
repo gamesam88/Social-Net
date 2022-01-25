@@ -1,5 +1,6 @@
 const ADD_POST = "ADD-POST"
 const UPDATE_POST = "UPDATE-POST"
+const SET_USER_PROFILE = "SET_USER_PROFILE"
 
 let initialState = {
     posts: [
@@ -8,6 +9,8 @@ let initialState = {
         { id: "3", message: "Im fine.", like: "15" },
     ],
     newPost: "",
+    userProfile: null
+
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -29,15 +32,22 @@ const profileReducer = (state = initialState, action) => {
             stateCopy.newPost = action.newText
             return stateCopy
         }
+        case SET_USER_PROFILE:
+            return {
+                ...state, userProfile: action.IncomeUserProfile
+            }
         default:
             return state
     }
 }
 
-export const addPostActionCreator = () => ({ type: ADD_POST })
+export const addPost = () => ({ type: ADD_POST })
 
-export const updatePostActionCreater = (text) => (
+export const updatePost = (text) => (
     { type: UPDATE_POST, newText: text }
+)
+export const setUserProfile = (IncomeUserProfile) => (
+    { type: SET_USER_PROFILE, IncomeUserProfile }
 )
 
 export default profileReducer

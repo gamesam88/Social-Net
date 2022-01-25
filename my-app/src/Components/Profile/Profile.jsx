@@ -1,15 +1,18 @@
 import React from "react";
-import { MyPostsContainer } from "./MyPosts/MyPostsContainer"
 import p from "./Profile.module.css"
 import ProfileInfo from "./ProfileInfo/ProfileInfo"
+import { MyPostsContainer } from "./MyPosts/MyPostsContainer"
 
-function Profile(props) {
+
+let Profile = (props) => {
+
     return (
         <div className={p.wrapper}>
-            <ProfileInfo />
+            <ProfileInfo profile={props.userProfile} />
             <MyPostsContainer />
         </div>
     )
 };
 
 export default Profile;
+
