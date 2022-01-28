@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
-import HeaderContainer from './Components/Header/HeaderContainer';
+import HeaderTest from './Components/Header/TestHeader';
 import Navigation from './Components/Navigation/Navigation';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
@@ -12,7 +12,7 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <div className="App-wrapper">
-        <HeaderContainer />
+        <HeaderTest />
         <Navigation />
         <div className='wrapper-content'>
           <Routes>

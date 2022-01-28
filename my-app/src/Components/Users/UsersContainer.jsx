@@ -1,40 +1,44 @@
-import React from "react"
+import { React, useEffect } from "react"
 import { connect } from "react-redux"
-import { follow, unfollow, setUsers, changePage, changeToggle } from "../../Redux/users_reducer"
-import * as axios from "axios"
+import { follow, unfollow, setUsers, changePage, changeToggle, changeProgress } from "../../Redux/users_reducer"
 import Users from "./Users"
+import { usersAPI } from "../../api/api"
 
-class UsersApiComponent extends React.Component {
+const UsersApiComponent = (props) => {
 
-    componentDidMount() {
-        this.props.changeToggle(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+    useEffect(() => {
+        console.log("useEffect")
+        props.changeToggle(true)
+        usersAPI.getUsers(props.currentPage, props.pageSize)
             .then(response => {
-                this.props.changeToggle(false)
-                this.props.setUsers(response.data.items)
+                props.changeToggle(false)
+                props.setUsers(response.items)
+            })
+    }, [])
+
+    const onPageChange = (currentPage) => {
+        console.log("onPageChan")
+        props.changePage(currentPage)
+        props.changeToggle(true)
+        usersAPI.getUsers(props.currentPage, props.pageSize)
+            .then(response => {
+                props.changeToggle(false)
+                props.setUsers(response.items)
             })
     }
-    onPageChange = (currentPage) => {
-        this.props.changePage(currentPage)
-        this.props.changeToggle(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.changeToggle(false)
-                this.props.setUsers(response.data.items)
-            })
-    }
+    return <Users totalCounts={props.totalCounts}
+        pageSize={props.pageSize}
+        onPageChange={onPageChange}
+        currentPage={props.currentPage}
+        users={props.users}
+        unfollow={props.unfollow}
+        follow={props.follow}
+        changeToggle={props.changeToggle}
+        isFetching={props.isFetching}
+        changeProgress={props.changeProgress}
+        inProgress={props.inProgress}
+    />
 
-    render() {
-        return <Users totalCounts={this.props.totalCounts}
-            pageSize={this.props.pageSize}
-            onPageChange={this.onPageChange}
-            currentPage={this.props.currentPage}
-            users={this.props.users}
-            unfollow={this.props.unfollow}
-            follow={this.props.follow}
-            changeToggle={this.props.changeToggle}
-            isFetching={this.props.isFetching} />
-    }
 }
 
 let mapStateToProps = (state) => {
@@ -43,16 +47,16 @@ let mapStateToProps = (state) => {
         pageSize: state.usersReducer.pageSize,
         totalCounts: state.usersReducer.totalCounts,
         currentPage: state.usersReducer.currentPage,
-        isFetching: state.usersReducer.isFetching
+        isFetching: state.usersReducer.isFetching,
+        inProgress: state.usersReducer.inProgress
     }
 }
-
-
 
 export default connect(mapStateToProps, {
     follow,
     unfollow,
     setUsers,
     changePage,
-    changeToggle
+    changeToggle,
+    changeProgress,
 })(UsersApiComponent)

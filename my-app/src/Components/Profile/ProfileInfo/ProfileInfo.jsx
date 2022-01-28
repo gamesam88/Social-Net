@@ -4,6 +4,7 @@ import Preloader from "../../common/preloader/Preloader"
 import avatarUser from "../../../assets/images/kateika.jpg"
 
 let ProfileInfo = (props) => {
+
     if (!props.profile) {
         return <Preloader />
     }

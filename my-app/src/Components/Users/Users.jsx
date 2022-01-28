@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./Users.module.css"
 import avatarUser from "../../assets/images/avatarUser.jpg"
 import Preloader from "../../Components/common/preloader/Preloader"
 import { NavLink } from "react-router-dom";
+import { usersAPI } from "../../api/api"
 
 let Users = (props) => {
+    console.log("User")
     let pagesCount = Math.ceil(props.totalCounts / props.pageSize)
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-
     let fetchState = () => {
         if (props.isFetching) {
             return <Preloader />
         }
     }
+
     return (
         < div >
             <div>
@@ -39,8 +41,26 @@ let Users = (props) => {
                                 </div>
                                 <div>
                                     {u.followed
-                                        ? <button onClick={() => { props.unfollow(u.id) }}>Unfollow</button>
-                                        : <button onClick={() => { props.follow(u.id) }}>Follow</button>}
+                                        ? <button disabled={props.inProgress.some(id => id === u.id)} onClick={() => {
+                                            props.changeProgress(true, u.id)
+                                            usersAPI.unfollowUser(u.id).then(response => {
+                                                if (response === 0) {
+                                                    props.unfollow(u.id)
+                                                }
+                                                props.changeProgress(false, u.id)
+                                            })
+                                        }}>Unfollow</button>
+
+                                        : <button disabled={props.inProgress.some(id => id === u.id)} onClick={() => {
+                                            props.changeProgress(true, u.id)
+                                            usersAPI.followUser(u.id).then(response => {
+                                                if (response === 0) {
+                                                    props.follow(u.id)
+                                                }
+                                                props.changeProgress(false, u.id)
+                                            })
+                                        }}>Follow</button>
+                                    }
                                 </div>
                             </div>
                             <div>
@@ -56,8 +76,8 @@ let Users = (props) => {
                         </div>)
                 }
             </div>
-
         </div >)
 }
 
 export default Users
+

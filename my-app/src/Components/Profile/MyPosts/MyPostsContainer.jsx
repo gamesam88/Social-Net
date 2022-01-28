@@ -33,6 +33,7 @@ let mapStateToProps = (state) => {
 }
 
 let mapDispatchToProps = (dispatch) => {
+
     return {
         addNewPost: () => {
             dispatch(addPost())
