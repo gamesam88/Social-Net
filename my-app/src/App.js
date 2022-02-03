@@ -6,8 +6,9 @@ import Navigation from './Components/Navigation/Navigation';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import UsersContainer from "./Components/Users/UsersContainer"
+import Login from "./Components/Login/Login"
 
-const App = (props) => {
+const App = () => {
 
   return (
     <BrowserRouter>
@@ -16,9 +17,12 @@ const App = (props) => {
         <Navigation />
         <div className='wrapper-content'>
           <Routes>
-            <Route path="/profile/:userId" element={<ProfileContainer />} />
+            <Route path="/profile" >
+              <Route path="/profile/:userId" element={<ProfileContainer />} />
+            </Route>
             <Route path="/dialogs" element={<DialogsContainer />} />
             <Route path="/users" element={<UsersContainer />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div>

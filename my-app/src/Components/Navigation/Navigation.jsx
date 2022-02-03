@@ -1,22 +1,22 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import n from "./Navigation.module.css"
+import style from "./Navigation.module.css"
 import { SideBarContainer } from "./SideBar/SideBarContainer"
 
 const Navigation = () => {
     return (
-        <nav className={n.navbar}>
+        <nav className={style.navbar}>
             <div >
-                <NavLink to="/Profile" className={navData => navData.isActive ? n.active : n.link}>
+                <NavLink to="/profile/21932" className={navData => navData.isActive ? style.active : style.link}>
                     Profile
                 </NavLink>
             </div>
             <div >
-                <NavLink to="/Dialogs" className={navData => navData.isActive ? n.active : n.link}>
+                <NavLink to="/Dialogs" className={navData => navData.isActive ? style.active : style.link}>
                     Dialogs
                 </NavLink>
             </div>
-            <div><NavLink to="/Users" className={navData => navData.isActive ? n.active : n.link}>
+            <div><NavLink to="/Users" className={navData => navData.isActive ? style.active : style.link}>
                 Users
             </NavLink></div>
             <div>

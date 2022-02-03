@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api"
+
 const FOLLOW_USER = "FOLLOW_USER"
 const UNFOLLOW_USER = "UNFOLLOW_USER"
 const SET_USERS = "SET_USERS"
@@ -5,16 +7,16 @@ const CHANGE_PAGE = "CHANGE_PAGE"
 const SET_TOGGE = "SET_TOGGE"
 const SET_PROGRESS = "SET_PROGRESS"
 
-let initialState = {
+const initialState = {
     users: [],
-    pageSize: 4,
-    totalCounts: 20,
+    pageSize: 5,
+    totalCounts: 50,
     currentPage: 1,
     isFetching: false,
     inProgress: [],
 }
 
-let usersReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case FOLLOW_USER:
             return {
@@ -54,6 +56,42 @@ let usersReducer = (state = initialState, action) => {
             }
         default:
             return state
+    }
+}
+
+export const getUsersThunkCreator = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(changeToggle(true))
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(response => {
+                dispatch(changeToggle(false))
+                dispatch(setUsers(response.items))
+                dispatch(changePage(currentPage))
+            })
+    }
+}
+
+export const followThunkCreator = (userId) => {
+    return (dispatch) => {
+        dispatch(changeProgress(true, userId))
+        usersAPI.followUser(userId).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(follow(userId))
+            }
+            dispatch(changeProgress(false, userId))
+        })
+    }
+}
+
+export const unfollowThunkCreator = (userId) => {
+    return (dispatch) => {
+        dispatch(changeProgress(true, userId))
+        usersAPI.unfollowUser(userId).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(unfollow(userId))
+            }
+            dispatch(changeProgress(false, userId))
+        })
     }
 }
 

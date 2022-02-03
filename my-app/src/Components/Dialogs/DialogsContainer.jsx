@@ -1,8 +1,9 @@
 import React from "react";
-import { AddMessageActionCreater } from "../../Redux/dialogs_reducer";
-import { updateMessageActionCreater } from "../../Redux/dialogs_reducer";
+import { AddMessageActionCreater, updateMessageActionCreater } from "../../Redux/dialogs_reducer";
 import Dialogs from "./Dialogs";
 import { connect } from "react-redux"
+import { compose } from "redux";
+import { WithAuthRedirect } from "../../hoc/WithAuthRedirect";
 
 /*
 function DialogsContainer(props) {
@@ -30,7 +31,7 @@ let mapStateToProps = (state) => {
     return {
         friends: state.dialogsReducer.friends,
         messages: state.dialogsReducer.messages,
-        newMessage: state.dialogsReducer.newMessage
+        newMessage: state.dialogsReducer.newMessage,
     }
 }
 
@@ -45,6 +46,7 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
-
-export default DialogsContainer;
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    WithAuthRedirect
+)(Dialogs);

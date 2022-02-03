@@ -1,19 +1,12 @@
 import React, { useEffect } from "react";
 import Header from "./Header"
-import * as axios from "axios"
 import { connect } from "react-redux";
-import { setMyData } from "../../Redux/auth_reducer"
-import { authMe } from "../../api/api"
+import { authoriseThunkCreator } from "../../Redux/auth_reducer"
 
 const HeaderTest = (props) => {
     useEffect(() => {
-        authMe().then(data => {
-            if (data.resultCode === 0) {
-                let { id, email, login } = data.data
-                props.setMyData(id, email, login)
-            }
-        })
-    })
+        props.authoriseThunkCreator()
+    }, [])
     return <Header {...props} />
 };
 
@@ -22,5 +15,4 @@ const mapStateToProps = (state) => ({
     login: state.authReducer.login
 }
 )
-export default connect(mapStateToProps, { setMyData })(HeaderTest)
-
+export default connect(mapStateToProps, { authoriseThunkCreator })(HeaderTest)

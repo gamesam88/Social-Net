@@ -2,19 +2,22 @@ import React from "react";
 import style from "./ProfileInfo.module.css"
 import Preloader from "../../common/preloader/Preloader"
 import avatarUser from "../../../assets/images/kateika.jpg"
+import ProfileStatus from "./ProfileStatus";
 
 let ProfileInfo = (props) => {
 
-    if (!props.profile) {
+    if (!props.userProfile) {
         return <Preloader />
     }
+
     return (
         <div className={style.wrapper}>
             <div>
-                <img src={props.profile.photos.large ? props.profile.photos.large : avatarUser} />
+                <img src={props.userProfile.photos.large ? props.userProfile.photos.large : avatarUser} />
+                <ProfileStatus status={props.status} updateStatusThunk={props.updateStatusThunk} />
             </div>
             <div className={style.discription}>
-                {props.profile.fullName}
+                {props.userProfile.fullName}
             </div>
         </div>
     )

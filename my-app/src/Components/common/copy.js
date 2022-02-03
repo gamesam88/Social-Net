@@ -17,3 +17,27 @@ let mapDispatchToProps = (dispatch) => {
         }
     }
 }
+
+
+/*
+function oldMyPostsContainer(props) {
+    let state = props.store.getState()
+
+    let addNewPost = () => {
+        props.store.dispatch(addPostActionCreator())
+    }
+
+    let onPostChange = (text) => {
+        let action = updatePostActionCreater(text)
+        props.store.dispatch(action)
+    }
+
+    return (<MyPosts
+        addNewPost={addNewPost}
+        onPostChange={onPostChange}
+        posts={state.profileReducer.posts}
+        newPost={state.profileReducer.newPost}
+    />
+    )
+};
+*/

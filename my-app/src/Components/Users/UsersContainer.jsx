@@ -1,44 +1,29 @@
 import { React, useEffect } from "react"
 import { connect } from "react-redux"
-import { follow, unfollow, setUsers, changePage, changeToggle, changeProgress } from "../../Redux/users_reducer"
+import { getUsersThunkCreator, followThunkCreator, unfollowThunkCreator, changePage } from "../../Redux/users_reducer"
 import Users from "./Users"
-import { usersAPI } from "../../api/api"
+import { compose } from "redux"
+import { WithAuthRedirect } from "../../hoc/WithAuthRedirect"
 
 const UsersApiComponent = (props) => {
-
     useEffect(() => {
-        console.log("useEffect")
-        props.changeToggle(true)
-        usersAPI.getUsers(props.currentPage, props.pageSize)
-            .then(response => {
-                props.changeToggle(false)
-                props.setUsers(response.items)
-            })
+        props.getUsersThunkCreator(props.currentPage, props.pageSize)
     }, [])
 
     const onPageChange = (currentPage) => {
-        console.log("onPageChan")
-        props.changePage(currentPage)
-        props.changeToggle(true)
-        usersAPI.getUsers(props.currentPage, props.pageSize)
-            .then(response => {
-                props.changeToggle(false)
-                props.setUsers(response.items)
-            })
+        props.getUsersThunkCreator(currentPage, props.pageSize)
     }
-    return <Users totalCounts={props.totalCounts}
+
+    return <Users
+        users={props.users}
         pageSize={props.pageSize}
+        totalCounts={props.totalCounts}
         onPageChange={onPageChange}
         currentPage={props.currentPage}
-        users={props.users}
-        unfollow={props.unfollow}
-        follow={props.follow}
-        changeToggle={props.changeToggle}
-        isFetching={props.isFetching}
-        changeProgress={props.changeProgress}
         inProgress={props.inProgress}
+        followThunkCreator={props.followThunkCreator}
+        unfollowThunkCreator={props.unfollowThunkCreator}
     />
-
 }
 
 let mapStateToProps = (state) => {
@@ -48,15 +33,17 @@ let mapStateToProps = (state) => {
         totalCounts: state.usersReducer.totalCounts,
         currentPage: state.usersReducer.currentPage,
         isFetching: state.usersReducer.isFetching,
-        inProgress: state.usersReducer.inProgress
+        inProgress: state.usersReducer.inProgress,
+        isAuth: state.authReducer.isAuth
     }
 }
 
-export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
-    changePage,
-    changeToggle,
-    changeProgress,
-})(UsersApiComponent)
+export default compose(connect(mapStateToProps, {
+    getUsersThunkCreator,
+    followThunkCreator,
+    unfollowThunkCreator,
+    changePage
+}),
+    WithAuthRedirect)
+    (UsersApiComponent)
+
