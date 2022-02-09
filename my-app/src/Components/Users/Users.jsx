@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./Users.module.css"
-import avatarUser from "../../assets/images/avatarUser.jpg"
 import Preloader from "../../Components/common/preloader/Preloader"
-import { NavLink } from "react-router-dom";
+import User from "./User";
 
-let Users = (props) => {
+const Users = (props) => {
+
+    const portionSize = 10
 
     let pagesCount = Math.ceil(props.totalCounts / props.pageSize)
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+
+    let portionCount = Math.ceil(pagesCount / portionSize)
+
+    let [portionNumber, setPortionNumber] = useState(1)
+    let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
+    let rightPortionPageNumber = portionNumber * portionSize
+
+
+
     let fetchState = () => {
         if (props.isFetching) {
             return <Preloader />
@@ -18,50 +28,27 @@ let Users = (props) => {
     }
     return (
         < div >
-            <div>
-                {pages.map(p => {
-                    return <span key={p} onClick={(e) => { props.onPageChange(p) }}
-                        className={props.currentPage === p && style.selectPage}>{p}</span>
-                })}
+            <div className={style.paginatorFlex}>
+                <div className={style.butnArrow}>
+                    {portionNumber > 1 &&
+                        <button onClick={() => { setPortionNumber(portionNumber - 1) }}>PREV</button>}
+                </div>
+                <div>
+                    {pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                        .map(p => {
+                            return <span key={p} onClick={(e) => { props.onPageChange(p) }}
+                                className={props.currentPage === p && style.selectPage}>{p}</span>
+                        })}
+                </div>
+                <div className={style.butnArrow}>
+                    {portionCount > portionNumber &&
+                        <button onClick={() => { setPortionNumber(portionNumber + 1) }}>NEXT</button>}
+                </div>
             </div>
             <div>
                 {fetchState()}
             </div>
-            <div>
-                {
-                    props.users.map(u =>
-                        <div key={u.id}>
-                            <div>
-                                <div className={style.ava}>
-                                    <NavLink to={"/profile/" + u.id} key={u.id}>
-                                        <img alt="avatar" src={u.photos.small != null ? u.photos.small : avatarUser} />
-                                    </NavLink>
-                                </div>
-                                <div>
-                                    {u.followed
-                                        ? <button disabled={props.inProgress.some(id => id === u.id)} onClick={() => {
-                                            props.unfollowThunkCreator(u.id)
-                                        }}>Unfollow</button>
-
-                                        : <button disabled={props.inProgress.some(id => id === u.id)} onClick={() => {
-                                            props.followThunkCreator(u.id)
-                                        }}>Follow</button>
-                                    }
-                                </div>
-                            </div>
-                            <div>
-                                <div>
-                                    <div>{u.name}</div>
-                                    <div>{u.status}</div>
-                                </div>
-                                <div>
-                                    <div>{"u.location.city"}</div>
-                                    <div>{"u.location.country"}</div>
-                                </div>
-                            </div>
-                        </div>)
-                }
-            </div>
+            <User {...props} />
         </div >)
 }
 

@@ -1,5 +1,4 @@
-const ADD_MESSAGE = "ADD-MESSAGE"
-const UPDATE_MESSAGE = "UPDATE-MESSAGE"
+const ADD_MESSAGE = "dialogs_ADD-MESSAGE"
 
 let initialState = {
     friends: [
@@ -13,49 +12,25 @@ let initialState = {
         { id: "2", message: "Go walk!" },
         { id: "3", message: "Hellow! Of course!" },
     ],
-
-    newMessage: "",
 }
 
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case UPDATE_MESSAGE:
-            return {
-                ...state,
-                newMessage: action.newText
-            }
-
         case ADD_MESSAGE: {
-            let textBody = state.newMessage
             return {
-                ...state, newMessage: "", messages: [...state.messages, {
+                ...state, messages: [...state.messages, {
                     id: "4",
-                    message: textBody,
+                    message: action.message,
                     like: "0"
                 }]
             }
-
-            //      let newMessageText = {
-            //        id: "4",
-            //       message: state.newMessage,
-            //         like: "0"
-            //      }
-            //       let stateCopy = { ...state }
-            //       stateCopy.messages = [...state.messages]
-            //        stateCopy.messages.push(newMessageText)
-            //       stateCopy.newMessage = ""
-            //       return stateCopy
         }
         default:
             return state
     }
 }
 
-export const AddMessageActionCreater = () => ({ type: ADD_MESSAGE })
-
-export const updateMessageActionCreater = (text) => (
-    { type: UPDATE_MESSAGE, newText: text }
-)
+export const AddMessageActionCreater = (message) => ({ type: ADD_MESSAGE, message })
 
 export default dialogsReducer
 

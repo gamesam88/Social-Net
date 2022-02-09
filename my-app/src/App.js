@@ -1,28 +1,48 @@
-import React from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
-import HeaderTest from './Components/Header/TestHeader';
+import HeaderContainer from './Components/Header/HeaderContainer';
 import Navigation from './Components/Navigation/Navigation';
-import ProfileContainer from './Components/Profile/ProfileContainer';
-import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import UsersContainer from "./Components/Users/UsersContainer"
-import Login from "./Components/Login/Login"
+import LoginContainer from "./Components/Login/LoginContainer"
+import { initializeAppThunk } from "./Redux/app_reducer"
+import { connect } from 'react-redux';
+import Preloader from "./Components/common/preloader/Preloader"
+import { compose } from "redux"
+import { authoriseThunkCreator } from "./Redux/auth_reducer"
+const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
+const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
 
-const App = () => {
+
+const App = (props) => {
+
+  useEffect(() => {
+    props.initializeAppThunk()
+  }, []);
+
+  if (!props.initialized) {
+    return <Preloader />
+  }
 
   return (
     <BrowserRouter>
       <div className="App-wrapper">
-        <HeaderTest />
+        <HeaderContainer />
         <Navigation />
         <div className='wrapper-content'>
           <Routes>
             <Route path="/profile" >
-              <Route path="/profile/:userId" element={<ProfileContainer />} />
+              <Route path="/profile/:userId" element={<Suspense fallback={<div>Загрузка...</div>}>
+                <ProfileContainer />
+              </Suspense>
+              } />
             </Route>
-            <Route path="/dialogs" element={<DialogsContainer />} />
+            <Route path="/dialogs" element={<Suspense fallback={<div>Загрузка...</div>}>
+              <DialogsContainer />
+            </Suspense>
+            } />
             <Route path="/users" element={<UsersContainer />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<LoginContainer />} />
           </Routes>
         </div>
       </div>
@@ -30,4 +50,10 @@ const App = () => {
   );
 }
 
-export default App;
+let mapStateToProps = (state) => {
+  return {
+    initialized: state.appReducer.initialized
+  }
+}
+
+export default compose(connect(mapStateToProps, { initializeAppThunk, authoriseThunkCreator }))(App)

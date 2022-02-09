@@ -7,7 +7,7 @@ function Post(props) {
     if (props.message) {
         return (
             <div className={Po.main}>
-                <img src={kote}></img>
+                <img alt="" src={kote}></img>
                 {props.message}
                 <div>
                     Likes {props.likes}

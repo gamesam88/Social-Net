@@ -2,6 +2,7 @@ import React from "react";
 import d from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem"
 import Message from "./Message/Message"
+import { Form, Field } from "react-final-form";
 
 function Dialogs(props) {
 
@@ -9,16 +10,16 @@ function Dialogs(props) {
 
     let messagesElements = props.messages.map(m => <Message key={m.id} message={m.message} id={m.id} />)
 
-    let newMessageElement = React.createRef()
-
-    let addNewMessage = () => {
-        props.addNewMessage()
+    const onBattonClick = (value) => {
+        props.addNewMessage(value)
     }
 
-    let onMessageChange = () => {
-        let text = newMessageElement.current.value
-        props.onMessageChange(text)
+    const onSubmit = (e) => {
+        onBattonClick(e.textarea)
     }
+    const validate = (e) => {
+    }
+
 
     return (
         <div className={d.dialogs}>
@@ -30,12 +31,26 @@ function Dialogs(props) {
                     {messagesElements}
                 </div>
                 <div className={d.textInput}>
-                    <textarea onChange={onMessageChange} ref={newMessageElement} value={props.newMessage} cols="30" rows="5" />
-                    <button onClick={addNewMessage}>Send message</button>
+                    <Form
+                        onSubmit={onSubmit}
+                        validate={validate}
+                        render={({ handleSubmit }) => (
+                            <form onSubmit={handleSubmit}>
+                                <div>
+                                    <label>Add your message:</label>
+                                    <div>
+                                        <Field name="textarea" cols="30" rows="5" component="textarea" />
+                                    </div>
+                                </div>
+                                <button type="submit">Send message</button>
+                            </form>
+                        )}
+                    />
                 </div>
             </div>
         </div>
     )
 };
+
 
 export default Dialogs;

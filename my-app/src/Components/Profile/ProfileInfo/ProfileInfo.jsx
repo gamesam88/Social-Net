@@ -13,7 +13,7 @@ let ProfileInfo = (props) => {
     return (
         <div className={style.wrapper}>
             <div>
-                <img src={props.userProfile.photos.large ? props.userProfile.photos.large : avatarUser} />
+                <img alt="" src={props.userProfile.photos.large ? props.userProfile.photos.large : avatarUser} />
                 <ProfileStatus status={props.status} updateStatusThunk={props.updateStatusThunk} />
             </div>
             <div className={style.discription}>

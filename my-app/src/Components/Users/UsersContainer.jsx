@@ -4,8 +4,10 @@ import { getUsersThunkCreator, followThunkCreator, unfollowThunkCreator, changeP
 import Users from "./Users"
 import { compose } from "redux"
 import { WithAuthRedirect } from "../../hoc/WithAuthRedirect"
+import { getUsers, getPageSize, getTotalCounts, getCurrentPage, getIsFetching, getInProgress, getIsAuth } from "../../Redux/users-selectors"
 
 const UsersApiComponent = (props) => {
+
     useEffect(() => {
         props.getUsersThunkCreator(props.currentPage, props.pageSize)
     }, [])
@@ -28,13 +30,13 @@ const UsersApiComponent = (props) => {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersReducer.users,
-        pageSize: state.usersReducer.pageSize,
-        totalCounts: state.usersReducer.totalCounts,
-        currentPage: state.usersReducer.currentPage,
-        isFetching: state.usersReducer.isFetching,
-        inProgress: state.usersReducer.inProgress,
-        isAuth: state.authReducer.isAuth
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalCounts: getTotalCounts(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        inProgress: getInProgress(state),
+        isAuth: getIsAuth(state),
     }
 }
 

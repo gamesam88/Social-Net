@@ -1,5 +1,5 @@
 import { authoriseAPI } from "../api/api"
-const SET_USER_DATA = "SET_USER_DATA"
+const SET_USER_DATA = "auth_SET_USER_DATA"
 
 let initialState = {
     userId: null,
@@ -16,27 +16,41 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.data,
-                isAuth: true
             }
         default:
             return state
     }
 }
 
-export const authoriseThunkCreator = () => {
+export const authoriseThunkCreator = () => async (dispatch) => {
+    let response = await authoriseAPI.authMe()
+    if (response.data.resultCode === 0) {
+        let { id, login, email } = response.data.data
+        dispatch(setMyData(id, email, login, true))
+    }
+}
+
+export const loginThunk = ({ email, password, rememberMe }) => async (dispatch) => {
+    let response = await authoriseAPI.authPostLogin(email, password, rememberMe)
+    if (response.data.resultCode === 0) {
+        dispatch(authoriseThunkCreator())
+    }
+}
+
+export const logOutThunk = () => {
     return (dispatch) => {
-        authoriseAPI.authMe().then(response => {
+        authoriseAPI.authDeleteLogin().then(response => {
             if (response.data.resultCode === 0) {
-                let { id, email, login } = response.data.data
-                dispatch(setMyData(id, email, login))
+                dispatch(setMyData(null, null, null, false))
             }
         })
     }
 }
 
 
-export const setMyData = (userId, email, login) => (
-    { type: SET_USER_DATA, data: { userId, email, login } }
+
+export const setMyData = (userId, email, login, isAuth) => (
+    { type: SET_USER_DATA, data: { userId, email, login, isAuth } }
 )
 
 

@@ -1,28 +1,43 @@
 import React from "react";
 import Post from "./Post/Post"
 import My from "./MyPosts.module.css"
+import { Form, Field } from "react-final-form";
 
-function MyPosts(props) {
+const MyPosts = React.memo((props) => {
 
-    let postsElements = props.posts.map(m => <Post key={m.id} message={m.message} likes={m.like} />)
+    let postsElements = [...props.posts].reverse().map(m => <Post key={m.id} message={m.message} likes={m.like} />)
 
-    let addNewPost = () => {
-        props.addNewPost()
+    let onPostSend = (newPost) => {
+        props.addNewPost(newPost)
     }
 
-    let onPostChange = (e) => {
-        let text = e.target.value;
-        props.onPostChange(text)
+    const onSubmit = (e) => {
+        onPostSend(e.textarea)
     }
+    const validate = (e) => {
+    }
+
     return (
         <div className={My.main}>
             <div className={My.textButton}>
-                <textarea placeholder="Yo! Write something here." onChange={onPostChange} value={props.newPost} cols="30" rows="5"></textarea>
-                <button onClick={addNewPost}>Send</button>
+                <Form
+                    onSubmit={onSubmit}
+                    validate={validate}
+                    render={({ handleSubmit }) => (
+                        <form onSubmit={handleSubmit}>
+                            <div>
+                                <div>
+                                    <Field name="textarea" placeholder="Add your message:" cols="30" rows="5" component="textarea" />
+                                </div>
+                            </div>
+                            <button type="submit">Send</button>
+                        </form>
+                    )}
+                />
             </div>
             {postsElements}
         </div>
     )
-};
+})
 
 export default MyPosts;

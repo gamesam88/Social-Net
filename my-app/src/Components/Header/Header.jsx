@@ -9,7 +9,6 @@ const Header = (props) => {
             <h1 className={style.text}>InZoo</h1>
             <div >
                 {props.isAuth ? <div>{props.login}</div> : <NavLink to={"/login"}>Login</NavLink>}
-
             </div>
 
         </header>

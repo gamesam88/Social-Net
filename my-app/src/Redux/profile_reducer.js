@@ -1,9 +1,8 @@
 import { profileAPI } from "../api/api"
 
-const ADD_POST = "ADD-POST"
-const UPDATE_POST = "UPDATE-POST"
-const SET_USER_PROFILE = "SET_USER_PROFILE"
-const SET_STATUS = "SET_STATUS"
+const ADD_POST = "profile_ADD-POST"
+const SET_USER_PROFILE = "profile_SET_USER_PROFILE"
+const SET_STATUS = "profile_SET_STATUS"
 
 let initialState = {
     posts: [
@@ -11,7 +10,6 @@ let initialState = {
         { id: "2", message: "Fine, and you?", like: "7" },
         { id: "3", message: "Im fine.", like: "15" },
     ],
-    newPost: "",
     userProfile: null,
     status: ""
 }
@@ -19,22 +17,17 @@ let initialState = {
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST: {
-            let newPostText = {
+            let newPostBody = {
                 id: "4",
-                message: state.newPost,
+                message: action.newPost,
                 like: "0"
             }
             let stateCopy = { ...state }
             stateCopy.posts = [...state.posts]
-            stateCopy.posts.push(newPostText)
-            stateCopy.newPost = ""
+            stateCopy.posts.push(newPostBody)
             return stateCopy
         }
-        case UPDATE_POST: {
-            let stateCopy = { ...state }
-            stateCopy.newPost = action.newText
-            return stateCopy
-        }
+
         case SET_USER_PROFILE: {
             return {
                 ...state, userProfile: action.IncomeUserProfile
@@ -77,8 +70,7 @@ export const updateStatusThunk = (status) => {
 }
 
 export const setStatus = (status) => ({ type: SET_STATUS, status: status })
-export const addPost = () => ({ type: ADD_POST })
-export const updatePost = (text) => ({ type: UPDATE_POST, newText: text })
+export const addPost = (newPost) => ({ type: ADD_POST, newPost })
 export const setUserProfile = (IncomeUserProfile) => (
     { type: SET_USER_PROFILE, IncomeUserProfile }
 )

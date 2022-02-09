@@ -1,15 +1,16 @@
 import { usersAPI } from "../api/api"
 
-const FOLLOW_USER = "FOLLOW_USER"
-const UNFOLLOW_USER = "UNFOLLOW_USER"
-const SET_USERS = "SET_USERS"
-const CHANGE_PAGE = "CHANGE_PAGE"
-const SET_TOGGE = "SET_TOGGE"
-const SET_PROGRESS = "SET_PROGRESS"
+const FOLLOW_USER = "users_FOLLOW_USER"
+const UNFOLLOW_USER = "users_UNFOLLOW_USER"
+const SET_USERS = "users_SET_USERS"
+const CHANGE_PAGE = "users_CHANGE_PAGE"
+const SET_TOGGE = "users_SET_TOGGE"
+const SET_PROGRESS = "users_SET_PROGRESS"
+const TOTAL_COUNTS = "users_TOTAL_COUNTS"
 
 const initialState = {
     users: [],
-    pageSize: 5,
+    pageSize: 20,
     totalCounts: 50,
     currentPage: 1,
     isFetching: false,
@@ -40,7 +41,7 @@ const usersReducer = (state = initialState, action) => {
             }
         case SET_USERS:
             return {
-                ...state, users: action.users
+                ...state, users: action.users,
             }
         case CHANGE_PAGE:
             return {
@@ -49,6 +50,10 @@ const usersReducer = (state = initialState, action) => {
         case SET_TOGGE:
             return {
                 ...state, isFetching: action.isFetching
+            }
+        case TOTAL_COUNTS:
+            return {
+                ...state, totalCounts: action.totalCounts
             }
         case SET_PROGRESS:
             return {
@@ -67,6 +72,8 @@ export const getUsersThunkCreator = (currentPage, pageSize) => {
                 dispatch(changeToggle(false))
                 dispatch(setUsers(response.items))
                 dispatch(changePage(currentPage))
+                dispatch(setTotalCounts(response.totalCount))
+
             })
     }
 }
@@ -97,6 +104,7 @@ export const unfollowThunkCreator = (userId) => {
 
 export const follow = (userId) => ({ type: FOLLOW_USER, userId })
 export const unfollow = (userId) => ({ type: UNFOLLOW_USER, userId })
+export const setTotalCounts = (totalCounts) => ({ type: TOTAL_COUNTS, totalCounts })
 export const setUsers = (users) => ({ type: SET_USERS, users })
 export const changePage = (currentPage) => ({ type: CHANGE_PAGE, currentPage })
 export const changeToggle = (isFetching) => ({ type: SET_TOGGE, isFetching })

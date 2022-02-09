@@ -4,8 +4,14 @@ import style from "./Navigation.module.css"
 import { SideBarContainer } from "./SideBar/SideBarContainer"
 
 const Navigation = () => {
+
     return (
         <nav className={style.navbar}>
+            <div >
+                <NavLink to="/login" className={navData => navData.isActive ? style.active : style.link}>
+                    Login
+                </NavLink>
+            </div>
             <div >
                 <NavLink to="/profile/21932" className={navData => navData.isActive ? style.active : style.link}>
                     Profile
