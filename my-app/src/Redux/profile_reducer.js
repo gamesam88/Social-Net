@@ -3,6 +3,7 @@ import { profileAPI } from "../api/api"
 const ADD_POST = "profile_ADD-POST"
 const SET_USER_PROFILE = "profile_SET_USER_PROFILE"
 const SET_STATUS = "profile_SET_STATUS"
+const SET_MY_PHOTO = "profile_SET_MY_PHOTO"
 
 let initialState = {
     posts: [
@@ -38,6 +39,12 @@ const profileReducer = (state = initialState, action) => {
                 ...state, status: action.status
             }
         }
+        case SET_MY_PHOTO: {
+            return {
+                ...state, userProfile: { ...state.userProfile, photos: action.photos }
+            }
+        }
+
         default:
             return state
     }
@@ -69,6 +76,27 @@ export const updateStatusThunk = (status) => {
     }
 }
 
+export const savePhotoThunk = (filePhoto) => {
+    return (dispatch) => {
+        profileAPI.updateMyPhoto(filePhoto).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setMyPhoto(response.data.data.photos))
+            }
+        })
+    }
+}
+
+export const saveProfileInfoThunk = (profile) => async (dispatch, getState) => {
+    debugger
+    const userId = getState().authReducer.userId
+    const response = await profileAPI.updateProfileInfo(profile)
+    if (response.data.resultCode === 0) {
+        dispatch(profileThunkCreator(userId))
+    }
+}
+
+
+export const setMyPhoto = (photos) => ({ type: SET_MY_PHOTO, photos })
 export const setStatus = (status) => ({ type: SET_STATUS, status: status })
 export const addPost = (newPost) => ({ type: ADD_POST, newPost })
 export const setUserProfile = (IncomeUserProfile) => (

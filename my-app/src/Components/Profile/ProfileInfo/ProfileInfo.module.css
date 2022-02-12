@@ -10,3 +10,12 @@
 .wrapper img {
     width: 300px;
 }
+.lookFor {
+    color: green;
+}
+.notLookFor {
+    color: red;
+}
+.btnSettings {
+    height: 50px;
+}

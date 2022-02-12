@@ -1,22 +1,23 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Profile from "./Profile";
-import { addPost, profileThunkCreator, getStatusThunk, updateStatusThunk } from "../../Redux/profile_reducer";
+import { addPost, profileThunkCreator, getStatusThunk, updateStatusThunk, savePhotoThunk, saveProfileInfoThunk } from "../../Redux/profile_reducer";
 import { useParams } from "react-router-dom"
 import { WithAuthRedirect } from "../../hoc/WithAuthRedirect"
 import { compose } from "redux";
 
 let ProfileContainer = (props) => {
+    let { userId } = useParams()
 
     useEffect(() => {
+        if (!userId) {
+            userId = props.authUserId
+        }
+
         props.profileThunkCreator(userId)
         props.getStatusThunk(userId)
-    }, [])
-
-    let { userId } = useParams()
-    if (!userId) {
-        userId = props.authUserId
-    }
+    },
+        [userId, props.authUserId])
 
     return (<Profile {...props} />)
 }
@@ -34,6 +35,8 @@ export default compose(connect(mapStateToProps, {
     profileThunkCreator,
     getStatusThunk,
     updateStatusThunk,
+    savePhotoThunk,
+    saveProfileInfoThunk
 }),
     WithAuthRedirect
 )(ProfileContainer)

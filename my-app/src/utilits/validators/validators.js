@@ -19,4 +19,48 @@ const validationSchema = {
     },
 };
 
+
+const profileDataValidationSchema = {
+    field: {
+        fullName: [
+            {
+                validator: Validators.maxLength,
+                customArgs: { length: 15 },
+                message: 'The max length is {{length}}',
+            },
+            {
+                validator: Validators.minLength,
+                customArgs: { length: 3 },
+                message: 'The min length is {{length}}',
+            }, Validators.required.validator
+        ],
+        aboutMe: [
+            {
+                validator: Validators.maxLength,
+                customArgs: { length: 50 },
+                message: 'The max length is {{length}}',
+            },
+            {
+                validator: Validators.minLength,
+                customArgs: { length: 3 },
+                message: 'The min length is {{length}}',
+            }, Validators.required.validator
+        ],
+        lookingForAJobDescription: [
+            {
+                validator: Validators.maxLength,
+                customArgs: { length: 50 },
+                message: 'The max length is {{length}}',
+            },
+            {
+                validator: Validators.minLength,
+                customArgs: { length: 3 },
+                message: 'The min length is {{length}}',
+            }, Validators.required.validator
+        ],
+    },
+};
+
+export const profileDataValidation = createFinalFormValidation(profileDataValidationSchema);
+
 export const formValidation = createFinalFormValidation(validationSchema);

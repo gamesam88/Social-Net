@@ -8,8 +8,9 @@ import { formValidation } from "../../utilits/validators/validators"
 const Login = (props) => {
 
     const onSubmit = (values) => {
-
+        debugger
         props.loginThunk(values)
+        console.log(values)
     }
     return (
         <div>
@@ -47,7 +48,7 @@ const Login = (props) => {
                                 <span>remember me</span>
                             </div>
                         </div>
-                        <button type="submit">Submit</button>
+                        <button type="submit">Log In</button>
                         <button onClick={props.logOutThunk} type="button">Log Out</button>
                     </form>
                 )}
