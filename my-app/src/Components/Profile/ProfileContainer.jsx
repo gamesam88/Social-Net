@@ -13,7 +13,6 @@ let ProfileContainer = (props) => {
         if (!userId) {
             userId = props.authUserId
         }
-
         props.profileThunkCreator(userId)
         props.getStatusThunk(userId)
     },

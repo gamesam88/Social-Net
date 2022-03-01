@@ -3,11 +3,15 @@ import { authoriseThunkCreator } from "./auth_reducer"
 
 const SET_INITIALISE = "app_SET_INITIALISE"
 
-let initialState = {
+type initialStateType = {
+    initialized: boolean
+}
+
+let initialState: initialStateType = {
     initialized: false
 }
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case SET_INITIALISE:
             return {
@@ -19,9 +23,13 @@ const appReducer = (state = initialState, action) => {
     }
 }
 
-export const initializeSuccess = () => ({ type: SET_INITIALISE })
+type initializeSuccessType = {
+    type: typeof SET_INITIALISE
+}
 
-export const initializeAppThunk = () => async (dispatch) => {
+export const initializeSuccess = (): initializeSuccessType => ({ type: SET_INITIALISE })
+
+export const initializeAppThunk = () => async (dispatch: any) => {
     await dispatch(authoriseThunkCreator());
     dispatch(initializeSuccess());
 
