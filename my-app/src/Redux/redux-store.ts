@@ -8,7 +8,7 @@ import authReducer from "./auth_reducer"
 import appReducer from "./app_reducer"
 
 
-let reducers = combineReducers({
+let rootReducer = combineReducers({
     profileReducer,
     dialogsReducer,
     sidebarReducer,
@@ -17,9 +17,13 @@ let reducers = combineReducers({
     appReducer,
 })
 
+type RootReducerType = typeof rootReducer
+export type AppStateType = ReturnType<RootReducerType>
+// @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-let store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)))
 
+let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)))
+// @ts-ignore
 window.store = store
 
 export default store

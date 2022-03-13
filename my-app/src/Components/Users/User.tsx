@@ -3,7 +3,7 @@ import style from "./Users.module.css"
 import avatarUser from "./../../assets/images/avatarUser.jpg"
 import { NavLink } from "react-router-dom";
 
-let User = (props) => {
+let User = (props: any) => {
     return <div>{
         props.users.map(u =>
             <div key={u.id}>

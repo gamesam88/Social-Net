@@ -14,7 +14,7 @@ const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileCo
 const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
 
 
-const App = (props) => {
+const App = (props: any) => {
 
   useEffect(() => {
     props.initializeAppThunk()
@@ -50,7 +50,7 @@ const App = (props) => {
   );
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: any) => {
   return {
     initialized: state.appReducer.initialized
   }

@@ -13,6 +13,7 @@ const initialState = {
     users: [] as Array<ProfileType>,
     pageSize: 20,
     totalCounts: 50,
+    portionSize: 10,
     currentPage: 1,
     isFetching: false,
     inProgress: [] as Array<number>,
