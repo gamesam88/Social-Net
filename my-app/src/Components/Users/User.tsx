@@ -2,8 +2,17 @@ import React from "react";
 import style from "./Users.module.css"
 import avatarUser from "./../../assets/images/avatarUser.jpg"
 import { NavLink } from "react-router-dom";
+import { ProfileType } from "../../Redux/profile_reducer";
 
-let User = (props: any) => {
+type PropsType = {
+    users: Array<ProfileType>
+    unfollowThunkCreator: (id: number) => void
+    followThunkCreator: (id: number) => void
+    inProgress: Array<number>
+}
+
+const User: React.FC<PropsType> = (props) => {
+    debugger
     return <div>{
         props.users.map(u =>
             <div key={u.id}>

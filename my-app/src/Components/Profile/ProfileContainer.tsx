@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Profile from "./Profile";
-import { addPost, profileThunkCreator, getStatusThunk, updateStatusThunk, savePhotoThunk, saveProfileInfoThunk } from "../../Redux/profile_reducer";
+import { addPost, profileThunkCreator, getStatusThunk, updateStatusThunk, savePhotoThunk, saveProfileInfoThunk, ProfileType, PhotosType } from "../../Redux/profile_reducer";
 import { useParams } from "react-router-dom"
 import { WithAuthRedirect } from "../../hoc/WithAuthRedirect"
 import { compose } from "redux";
+import { AppStateType } from "../../Redux/redux-store";
 
-let ProfileContainer = (props) => {
+let ProfileContainer = (props: any) => {
     let { userId } = useParams()
 
     useEffect(() => {
@@ -21,7 +22,22 @@ let ProfileContainer = (props) => {
     return (<Profile {...props} />)
 }
 
-let mapStateToProps = (state) => {
+type ProfileMapStateToPropsType = {
+    userProfile: ProfileType | null
+    status: string
+    authUserId: number | null
+}
+
+type ProfileMapDispathToPropsType = {
+    addPost: (newPost: string) => void
+    profileThunkCreator: (userId: number) => void
+    getStatusThunk: (userId: number) => void
+    updateStatusThunk: (status: string) => void
+    savePhotoThunk: (filePhoto: PhotosType) => void
+    saveProfileInfoThunk: (profile: ProfileType) => void
+}
+
+let mapStateToProps = (state: AppStateType): ProfileMapStateToPropsType => {
     return {
         userProfile: state.profileReducer.userProfile,
         status: state.profileReducer.status,

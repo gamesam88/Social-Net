@@ -35,7 +35,7 @@ const Paginator: React.FC<PropsType> = (props) => {
                 {pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                     .map(p => {
                         return <span key={p} onClick={(e) => { props.onPageChange(p) }}
-                            className={props.currentPage === p && styles.selectPage}>{p}</span>
+                            className={props.currentPage === p ? styles.selectPage : undefined}>{p}</span>
                     })}
             </div>
             <div className={styles.butnArrow}>
@@ -47,4 +47,7 @@ const Paginator: React.FC<PropsType> = (props) => {
 }
 
 export default Paginator;
+
+
+
 

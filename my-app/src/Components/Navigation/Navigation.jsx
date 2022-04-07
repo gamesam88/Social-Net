@@ -22,7 +22,7 @@ const Navigation = () => {
                     Dialogs
                 </NavLink>
             </div>
-            <div><NavLink to="/Users" className={navData => navData.isActive ? style.active : style.link}>
+            <div><NavLink to="/users" className={navData => navData.isActive ? style.active : style.link}>
                 Users
             </NavLink></div>
             <div>

@@ -5,7 +5,7 @@ import avatarUser from "../../../assets/images/kateika.jpg"
 import ProfileStatus from "./ProfileStatus";
 import ProfileDataForm from "./ProfileDataForm"
 
-let ProfileInfo = (props) => {
+let ProfileInfo = (props: any) => {
     let [editMode, setEditMode] = useState(false)
 
     let owner = true
@@ -47,7 +47,7 @@ let ProfileInfo = (props) => {
 };
 
 
-export const ProfileData = (props) => {
+export const ProfileData = (props: any) => {
 
     return (
         <div className={style.discription}>

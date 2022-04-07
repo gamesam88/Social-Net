@@ -11,14 +11,14 @@ export type UsersPropsType = {
     pageSize: number
     portionSize: number
     totalCounts: number
-    onPageChange: () => void
+    onPageChange: (userId: number) => void
     currentPage: number
     inProgress: Array<number>
-    followThunkCreator: () => void
-    unfollowThunkCreator: () => void
+    followThunkCreator: (userId: number) => void
+    unfollowThunkCreator: (userId: number) => void
 }
 
-const Users = (props: any) => {
+const Users = (props: UsersPropsType) => {
     const fetchState = () => {
         if (props.isFetching) {
             return <Preloader />
