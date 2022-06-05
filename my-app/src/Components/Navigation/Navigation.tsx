@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import style from "./Navigation.module.css"
 import { SideBarContainer } from "./SideBar/SideBarContainer"
 
-const Navigation = () => {
+const Navigation: React.FC = () => {
 
     return (
         <nav className={style.navbar}>
@@ -18,7 +18,7 @@ const Navigation = () => {
                 </NavLink>
             </div>
             <div >
-                <NavLink to="/Dialogs" className={navData => navData.isActive ? style.active : style.link}>
+                <NavLink to="/dialogs" className={navData => navData.isActive ? style.active : style.link}>
                     Dialogs
                 </NavLink>
             </div>

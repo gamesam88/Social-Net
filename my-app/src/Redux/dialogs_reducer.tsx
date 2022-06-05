@@ -16,7 +16,7 @@ let initialState = {
 
 export type initialStateType = typeof initialState
 
-const dialogsReducer = (state = initialState, action: any) => {
+const dialogsReducer = (state = initialState, action: AddMessageActionCreaterType) => {
     switch (action.type) {
         case ADD_MESSAGE: {
             return {

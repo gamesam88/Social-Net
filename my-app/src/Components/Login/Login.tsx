@@ -2,14 +2,20 @@ import React from "react";
 import { Form, Field } from 'react-final-form'
 import style from "./Login.module.css"
 import { formValidation } from "../../utilits/validators/validators"
+import { FieldRenderProps } from "react-final-form";
+
+interface ValuesType {
+    email: string | null
+    password: string | null
+    rememberMe: boolean
+}
+
+type Props = FieldRenderProps<string, any, string>;
 
 
-
-const Login = (props) => {
-
-    const onSubmit = (values) => {
-        debugger
-        props.loginThunk(values)
+const Login: React.FC = (props: any) => {
+    const onSubmit = async (values: ValuesType) => {
+        await props.loginThunk(values)
         console.log(values)
     }
     return (

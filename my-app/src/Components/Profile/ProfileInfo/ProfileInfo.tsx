@@ -23,7 +23,7 @@ let ProfileInfo = (props: any) => {
         return <Preloader />
     }
 
-    const onChosenPhoto = (e) => {
+    const onChosenPhoto = (e: any) => {
         if (e.target.files.length) {
             props.savePhotoThunk(e.target.files[0])
         }
@@ -72,7 +72,7 @@ export const ProfileData = (props: any) => {
     )
 }
 
-export const Contact = ({ contactTitle, contactValue }) => {
+export const Contact = ({ contactTitle, contactValue }: any) => {
     return <div><b>{contactTitle} :</b> {contactValue}</div>
 }
 

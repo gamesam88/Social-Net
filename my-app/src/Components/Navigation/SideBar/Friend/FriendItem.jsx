@@ -6,7 +6,7 @@ const FriendItem = (props) => {
     return (
         <div className={f.friend}>
             <img className={f.friendAvatar} src={props.ava} alt="avatar" />
-            <NavLink to="./Profile" className={navData => navData.isActive ? f.active : f.free}>
+            <NavLink to="./profile" className={navData => navData.isActive ? f.active : f.free}>
                 {props.name}
             </NavLink>
         </div>

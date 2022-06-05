@@ -14,19 +14,19 @@ export type postsType = {
 }
 
 export type ContactsType = {
-    facebook: null | string
-    website: null | string
-    vk: null | string
-    twitter: null | string
-    instagram: null | string
-    youtube: null | string
-    github: null | string
-    mainLink: null | string
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
 }
 
 export type PhotosType = {
-    small: null | string
-    large: null | string
+    small: string | null
+    large: string | null
 }
 
 export type ProfileType = {

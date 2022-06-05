@@ -1,4 +1,6 @@
+import { ThunkAction } from "redux-thunk"
 import { authoriseAPI } from "../api/api"
+import { AppStateType } from "./redux-store"
 const SET_USER_DATA = "auth_SET_USER_DATA"
 
 export type initialStateType = {
@@ -15,10 +17,14 @@ let initialState: initialStateType = {
     login: null,
     isAuth: false,
     isFetching: false,
-
 }
 
-const authReducer = (state = initialState, action: any): initialStateType => {
+enum ResultCodes {
+    Success = 0,
+    Error = 1
+}
+
+const authReducer = (state = initialState, action: setMyDataActionType): initialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -30,30 +36,32 @@ const authReducer = (state = initialState, action: any): initialStateType => {
     }
 }
 
-export const authoriseThunkCreator = () => async (dispatch: any) => {
+type ThunkTypes = ThunkAction<Promise<void>, AppStateType, unknown, setMyDataActionType>
+
+export const authoriseThunkCreator = (): ThunkTypes => async (dispatch) => {
     let response = await authoriseAPI.authMe()
-    if (response.data.resultCode === 0) {
-        let { id, login, email } = response.data.data
+    if (response.resultCode === ResultCodes.Success) {
+        let { id, login, email } = response.data
         dispatch(setMyData(id, email, login, true))
     }
 }
 
 type loginThunkType = {
-    email: string
-    password: string
+    email: string | string
+    password: string | null
     rememberMe: boolean
 }
 
-export const loginThunk = ({ email, password, rememberMe }: loginThunkType) => async (dispatch: any) => {
+export const loginThunk = ({ email, password, rememberMe }: loginThunkType): ThunkTypes => async (dispatch) => {
     let response = await authoriseAPI.authPostLogin(email, password, rememberMe)
-    if (response.data.resultCode === 0) {
+    if (response === ResultCodes.Success) {
         dispatch(authoriseThunkCreator())
     }
 }
 
-export const logOutThunk = () => async (dispatch: any) => {
+export const logOutThunk = (): ThunkTypes => async (dispatch) => {
     let response = await authoriseAPI.authDeleteLogin()
-    if (response.data.resultCode === 0) {
+    if (response === ResultCodes.Success) {
         dispatch(setMyData(null, null, null, false))
     }
 }

@@ -7,7 +7,11 @@ import { WithAuthRedirect } from "../../hoc/WithAuthRedirect"
 import { compose } from "redux";
 import { AppStateType } from "../../Redux/redux-store";
 
-let ProfileContainer = (props: any) => {
+type OwnPropsType = {}
+
+type ProfileContainerPropsType = ProfileMapDispathToPropsType & ProfileMapStateToPropsType
+
+const ProfileContainer = (props: any) => {
     let { userId } = useParams()
 
     useEffect(() => {
@@ -45,7 +49,7 @@ let mapStateToProps = (state: AppStateType): ProfileMapStateToPropsType => {
     }
 }
 
-export default compose(connect(mapStateToProps, {
+export default compose(connect<ProfileMapStateToPropsType, ProfileMapDispathToPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
     addPost,
     profileThunkCreator,
     getStatusThunk,

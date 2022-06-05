@@ -1,4 +1,5 @@
-import * as axios from "axios"
+import axios from "axios"
+import { PhotosType, ProfileType } from "../Redux/profile_reducer"
 
 const instance = axios.create(
     {
@@ -9,52 +10,64 @@ const instance = axios.create(
 )
 
 
+
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 5) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
     },
-    unfollowUser(userId) {
+    unfollowUser(userId: number | null) {
         return instance.delete(`follow/${userId}`)
     },
-    followUser(userId) {
+    followUser(userId: number | null) {
         return instance.post(`follow/${userId}`)
     },
+}
 
+type MeType = {
+    data: {
+        id: number
+        email: string
+        login: string
+    }
+    resultCode: number
+    messages: Array<string>
 }
 
 export const authoriseAPI = {
     authMe() {
-        return instance.get(`auth/me`)
+        return instance.get<MeType>(`auth/me`).then(response => response.data)
     },
-    authPostLogin(email, password, rememberMe) {
+    authPostLogin(email: string | null, password: string | null, rememberMe = false) {
         return instance.post(`auth/login`, {
             email,
             password,
             rememberMe
-        })
+        }).then(response => response.data.resultCode)
     },
     authDeleteLogin() {
-        return instance.delete(`auth/login`)
+        return instance.delete(`auth/login`).then(response => response.data.resultCode)
     }
 
 }
 
+
+
 export const profileAPI = {
-    getProfile(userId) {
-        return instance.get(`profile/${userId}`).then(response => response.data)
+    getProfile(userId: number | null) {
+        return instance.get<ProfileType>(`profile/${userId}`).then(response => response.data)
     },
-    getStatus(userId) {
-        return instance.get(`profile/status/${userId}`)
+    getStatus(userId: number | null) {
+        return instance.get<string>(`profile/status/${userId}`)
     },
-    updateStatus(status) {
+    updateStatus(status: string) {
         return instance.put(`profile/status`, { status: status })
     },
-    updateMyPhoto(filePhoto) {
+    updateMyPhoto(filePhoto: any) {
         const formData = new FormData()
         formData.append("image", filePhoto)
         return instance.put(`profile/photo`, formData)
     },
-    updateProfileInfo(profile) {
+    updateProfileInfo(profile: ProfileType) {
         return instance.put(`profile`, profile)
     }
 

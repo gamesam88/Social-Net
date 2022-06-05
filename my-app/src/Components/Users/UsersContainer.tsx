@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, FC } from "react"
 import { connect } from "react-redux"
 import { getUsersThunkCreator, followThunkCreator, unfollowThunkCreator, changePage } from "../../Redux/users_reducer"
 import Users from "./Users"
@@ -34,7 +34,7 @@ type UsersContainerPropsType = MapDispathToPropsType & MapStateToPropsType
 
 
 
-const UsersApiComponent: React.FC<UsersContainerPropsType> = (props) => {
+const UsersApiComponent: FC<UsersContainerPropsType> = (props) => {
 
     useEffect(() => {
         props.getUsersThunkCreator(props.currentPage, props.pageSize)

@@ -9,12 +9,11 @@ import { initializeAppThunk } from "./Redux/app_reducer"
 import { connect } from 'react-redux';
 import Preloader from "./Components/common/preloader/Preloader"
 import { compose } from "redux"
-import { authoriseThunkCreator } from "./Redux/auth_reducer"
-const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
 const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer').then(({ default: ProfileContainer }) => ({ default: ProfileContainer })));
 
 
-const App = (props: any) => {
+const App: React.FC = (props: any) => {
 
   useEffect(() => {
     props.initializeAppThunk()
@@ -32,12 +31,12 @@ const App = (props: any) => {
         <div className='wrapper-content'>
           <Routes>
             <Route path="/profile" >
-              <Route path="/profile/:userId" element={<Suspense fallback={<div>Загрузка...</div>}>
+              <Route path="/profile/:userId" element={<Suspense fallback={<div><Preloader /></div>}>
                 <ProfileContainer />
               </Suspense>
               } />
             </Route>
-            <Route path="/dialogs" element={<Suspense fallback={<div>Загрузка...</div>}>
+            <Route path="/dialogs" element={<Suspense fallback={<div><Preloader /></div>}>
               <DialogsContainer />
             </Suspense>
             } />
@@ -50,10 +49,12 @@ const App = (props: any) => {
   );
 }
 
+
+
 let mapStateToProps = (state: any) => {
   return {
     initialized: state.appReducer.initialized
   }
 }
 
-export default compose(connect(mapStateToProps, { initializeAppThunk, authoriseThunkCreator }))(App)
+export default compose(connect(mapStateToProps, { initializeAppThunk }))(App)
